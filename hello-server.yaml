@@ -1,0 +1,9 @@
+---
+- name: Check Connection to all Groups hosts play
+  hosts: group0*
+  remote_user: ansible
+
+  tasks:
+    - name: Ping all Groups hosts Task
+      ansible.builtin.ping:
+...

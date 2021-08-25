@@ -1,0 +1,11 @@
+---
+- name: set key from my path
+  hosts: all
+  tasks:
+  - name: distribute it
+    authorized_key:
+      user: ansible
+      state: present
+      key: "{{ lookup('file','/home/ansible/.ssh/id_rsa.pub')  }}"
+
+...
