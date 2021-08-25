@@ -1,0 +1,11 @@
+---
+- hosts: group06
+  tasks:
+    - name: Copy file with owner and permission
+      copy:
+        src: /etc/rc.conf
+        dest: /home/ansible/new-rc.conf
+        owner: ansible
+        group: ansible
+        mode: '0644'
+...

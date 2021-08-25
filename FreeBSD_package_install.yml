@@ -1,0 +1,8 @@
+---
+- hosts: group06
+  tasks:
+    - name: Installing wget Package
+      pkgng:
+        name: wget
+        state: latest
+...
