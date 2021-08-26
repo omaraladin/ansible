@@ -1,0 +1,9 @@
+---
+- hosts: redhat
+  remote_user: root
+  tasks:
+    - name: Installing postfix package
+      yum:
+        name: postfix
+        state: latest
+...

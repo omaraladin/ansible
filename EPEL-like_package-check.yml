@@ -1,0 +1,12 @@
+---
+- hosts: redhat
+  gather_facts: false
+  remote_user: root
+  tasks:
+    - name: List ansible packages and register result to print with debug later
+      yum:
+        list: httpd
+      register: out
+
+    - debug:
+        var: out

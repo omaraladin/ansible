@@ -1,0 +1,10 @@
+---
+- hosts: redhat
+  remote_user: root
+  tasks:
+    - name: Start + Enable postfix service
+      service:
+        name: postfix
+        state: started
+        enabled: yes
+...
