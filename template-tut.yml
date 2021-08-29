@@ -1,0 +1,11 @@
+---
+- name:
+  hosts: localhost
+  vars:
+    human_name: "Rana"
+  tasks:
+    - name:
+      template:
+        src: /home/ansible/template-tut.j2
+        dest: /home/ansible/Advice.txt
+...

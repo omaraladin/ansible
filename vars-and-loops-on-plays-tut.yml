@@ -1,0 +1,12 @@
+---
+- name: Vars with Loops
+  hosts: localhost
+  tasks:
+    - name: loop friends names to print
+      debug:
+        msg: "{{item}}"
+      with_items:
+        - Jihad
+        - Woody
+        - Hanno
+...

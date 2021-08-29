@@ -1,0 +1,14 @@
+---
+- name: trying Vars type Array
+  hosts: localhost
+  vars:
+    friends:
+      - jihad
+      - misbah
+      - taha
+      - woody
+  tasks:
+    - name: print Jihad to me
+      debug:
+        msg:  "{{ friends[0] }} and {{ friends[1] }} are always Arguing!"
+...

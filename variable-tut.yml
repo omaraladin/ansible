@@ -1,0 +1,12 @@
+---
+- name: variable test
+  hosts: localhost
+  vars:
+    var1: 'Fabuluous'
+    var2: 'Abshnb is'
+    var3: "{{var2}} {{var1}}"
+  tasks:
+    - name: print var3 variable
+      debug:
+        msg: "{{var3}}"
+...

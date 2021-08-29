@@ -1,0 +1,15 @@
+---
+- name: trying Vars type Dictionary
+  hosts: localhost
+  vars:
+    - apartment: {
+      'jihad': 'Halfaya',
+      'misbah': 'Salha',
+      'taha': 'Sharjah',
+      'woody': 'Shambat'
+      }
+  tasks:
+    - name: print Jihad and Woody Apartments to me
+      debug:
+        msg:  "Jihad lives in {{ apartment['jihad'] }} while Woody in {{ apartment['woody'] }}"
+...
