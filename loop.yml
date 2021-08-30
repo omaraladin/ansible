@@ -1,0 +1,19 @@
+---
+- hosts: group06,localhost
+  become: yes
+  tasks:
+    - name: the challenge game
+      debug:
+        msg: "{{item}}"
+      with_random_choice:
+        - "go through the door"
+        - "drink from the goblet"
+        - "jump three times"
+        - "do nothing"
+        - "mimic the dog sound"
+    - name: creating files with sequence from 1 to 10
+      file:
+        path: /var/file-omar-{{item}}.txt
+        state: touch
+      with_sequence: start=1 end=10
+...

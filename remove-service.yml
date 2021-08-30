@@ -1,0 +1,10 @@
+---
+- hosts: group06
+  become_method: su
+  become: yes
+  tasks:
+    - name: Remove nginx Package in FreeBSD Machines
+      pkgng:
+        name: nginx
+        state: absent
+...

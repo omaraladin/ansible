@@ -1,0 +1,11 @@
+---
+- hosts: group06
+  vars:
+    file_var: file version 2020030200.Beta
+    my_name: OmarAladdin
+  tasks:
+    - name: template example
+      template:
+        src: temp.j2
+        dest: /tmp/{{ my_name }}.txt
+...

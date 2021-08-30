@@ -1,0 +1,20 @@
+---
+- hosts: redhat
+  remote_user: root
+  tasks:
+    - name: Installing postfix package
+      yum:
+        name: postfix
+        state: latest
+        
+    - name: Start + Enable postfix service
+      service:
+        name: postfix
+        state: started
+        enabled: yes
+
+    - name: Removing postfix package
+      yum:
+        name: postfix
+        state: absent
+...
