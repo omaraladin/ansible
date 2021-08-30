@@ -1,0 +1,18 @@
+---
+- hosts: group06
+  vars:
+    my_name: 'Omar'
+  tasks:
+    - name: creating {{my_name}} dir
+      file:
+        path: /home/ansible/{{my_name}}
+        state: directory
+
+    - name: check is {{my_name}} exists step1
+      command: "ls -ld /home/ansible/{{my_name}}"
+      register: x
+
+    - name: check is {{my_name}} exists step2
+      debug:
+        msg: "{{x.stdout}}"
+...

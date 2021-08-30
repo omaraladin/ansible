@@ -1,0 +1,48 @@
+---
+- hosts: group06, redhat, debian
+  become_method: su
+  become: yes
+  tasks:
+    - name: install services on Debian machines
+      apt:
+        name:
+          - apache2
+          - nginx
+          - bind9
+          - mariadb-server
+        state: latest
+      when:
+        ansible_os_family == 'Debian'
+      notify: Restart DNS
+        
+    - name: install services on RedHat machines
+      yum:
+        name:
+          - httpd
+          - nginx
+          - bind
+          - mariadb
+        state: latest
+      when:
+        ansible_os_family == 'RedHat'
+      notify: Restart DNS
+
+    - name: install services on FreeBSD
+      pkgng:
+        name:
+          - apache24
+          - nginx
+          - bind916
+          - mariadb105-server
+        state: latest
+      when:
+        ansible_os_family == 'FreeBSD'
+      notify: Restart DNS
+
+  handlers:
+    - name: Restart DNS
+      service:
+        name: named
+        state: restarted
+          
+...

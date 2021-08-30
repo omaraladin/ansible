@@ -1,0 +1,15 @@
+---
+- hosts: group06
+  tasks:
+    - name: add a new user to the system
+      user:
+        name: '{{item}}'
+        group: ansible
+        shell: /bin/csh    
+        home: /home/{{item}}
+      with_items:
+        - awad
+        - abbas
+        - nafeesa
+        - hamdook
+...
