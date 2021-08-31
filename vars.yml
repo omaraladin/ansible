@@ -1,10 +1,12 @@
 ---
-- hosts: group06
+- name: variable test
+  hosts: localhost
   vars:
-    var1: 'Hakoona'
-    var2: 'Matata'
+    var1: 'Fabuluous'
+    var2: 'Abshnb is'
+    var3: "{{var2}} {{var1}}"
   tasks:
-    - name: testing and calling Variables
+    - name: print var3 variable
       debug:
-        msg: "Laugh in the face of danger and say {{var1}},{{var2}}"
+        msg: "{{var3}}"
 ...

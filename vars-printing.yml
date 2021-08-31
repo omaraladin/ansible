@@ -1,0 +1,10 @@
+---
+- hosts: group06
+  vars:
+    var1: 'Hakoona'
+    var2: 'Matata'
+  tasks:
+    - name: testing and calling Variables
+      debug:
+        msg: "Laugh in the face of danger and say {{var1}},{{var2}}"
+...

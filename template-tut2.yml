@@ -6,6 +6,6 @@
   tasks:
     - name: template example
       template:
-        src: temp.j2
+        src: template-tut2.j2
         dest: /tmp/{{ my_name }}.txt
 ...
