@@ -1,0 +1,11 @@
+---
+ - name: Deploying Web Service with Config
+   hosts: group10, redhat, debian
+   become_method: su
+   become: yes
+   roles:
+     - role: Apache_role
+       group_no: 'Group10'
+       my_name: 'Omar_Aladdin'
+       pc_no: 'PC17'
+...

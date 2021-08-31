@@ -1,0 +1,49 @@
+---
+# tasks file for OmarAladdin
+ - name: Deploy Apache in RedHat
+   yum:
+     name: httpd
+     state: latest
+   when: ansible_os_family == 'Redhat'
+ - name: Setting Variables for RedHat
+   set_fact:
+     RootDoc: '/var/www/html/'
+     MainConf: '/etc/httpd/conf/httpd.conf'
+     PkgName: 'httpd'
+   when: ansible_os_family == 'RedHat'
+
+ - name: Deploy Apache in Ubuntu
+   apt:
+     name: apache2
+     state: latest
+   when: ansible_os_family == 'Debian'
+ - name: Setting Variables for Debian
+   set_fact:
+     RootDoc: '/var/www/html/'
+     MainConf: '/etc/apache2/sites-enabled/000-default.conf'
+     PkgName: 'apache2'
+   when: ansible_os_family == 'Debian'
+
+ - name: Deploy Apache in FreeBSD
+   pkgng:
+     name: apache24
+     state: latest
+   when: ansible_os_family == 'FreeBSD'
+ - name: Setting Variables for FreeBSD
+   set_fact:
+     RootDoc: '/usr/local/www/apache24/data/'
+     MainConf: '/usr/local/etc/apache24/httpd.conf'
+     PkgName: 'apache24'
+   when: ansible_os_family == 'FreeBSD'
+
+ - name: Deploy WebRoot index
+   template:
+     src: temp.html.j2
+     dest: '{{RootDoc}}{{pc_no}}.html'
+
+ - name: Configure ServerName in main conf file
+   lineinfile:
+     path: '{{MainConf}}'
+     regexp: '#ServerName'
+     line: 'ServerName {{inventory_hostname}}:80'
+   notify: Restart and Enable Apache

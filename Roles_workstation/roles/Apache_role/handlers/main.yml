@@ -1,0 +1,7 @@
+---
+# handlers file for OmarAladdin
+ - name: Restart and Enable Apache
+   service:
+     name: '{{PkgName}}'
+     state: restarted
+     enabled: yes

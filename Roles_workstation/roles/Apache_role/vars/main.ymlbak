@@ -1,0 +1,14 @@
+---
+# vars file for OmarAladdin
+  FreeBSD:
+     RootDoc: '/usr/local/www/apache24/data/'
+     MainConf: '/usr/local/etc/apache24/httpd.conf'
+     PkgName: 'apache24'
+  RedHat:
+     RootDoc: '/var/www/html/'
+     MainConf: '/etc/httpd/conf/httpd.conf'
+     PkgName: 'httpd'
+  Debian:
+     RootDoc: '/var/www/html/'
+     MainConf: '/etc/apache2/sites-enabled/000-default.conf'
+     PkgName: 'apache2'
