@@ -1,0 +1,11 @@
+---
+# This Playbook adds a cronjob to specified hosts
+- hosts: HOST1
+  remote_user: root
+  tasks:
+    - name: Add Cron Job task
+      cron:
+        name: "Kill UDP Process"
+        minute: "*/10"
+        job: "/usr/bin/echo 'Hi I run every 10 minutes!' > /root/job.log"
+...
