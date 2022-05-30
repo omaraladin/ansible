@@ -1,0 +1,11 @@
+---
+# This playbook runs locally to just send a telegram message through a Bot Token + Telegram API
+- name: Send notify to Telegram
+  hosts: localhost
+  tasks:
+    - name: Send notify to Telegram
+      telegram:
+        token: 'YYYYYY:XXXXXXXXXXXXXXXXXX'
+        chat_id: "-XYZ"
+        msg: "omar and here's a new line:\nI'm the new line"
+...
