@@ -1,0 +1,56 @@
+---
+# This Playbook works on RHEL7, CentOS7 and wasn't tested on Debian-Family Distros
+- hosts: monitor-target
+  remote_user: root
+  tasks:
+    - name: Install Zabbix Repository
+      yum:
+        name: https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+        state: present
+
+    - name: Clean Repos Cache
+      command: yum clean all
+
+    - name: Install Zabbix Package
+      yum:
+        name: zabbix-agent
+        state: present
+
+    - name: Generate PSK for Zabbix_Server Connection
+      shell:
+        cmd: openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk
+
+    - name: Modify Zabbix Agnet Configurations
+      lineinfile:
+        dest: "/etc/zabbix/zabbix_agentd.conf"
+        regexp: "{{ item.old }}"
+        line: "{{ item.new }}"
+      with_items:
+        - { old: '^Server=127\.0\.0\.1', new: 'Server=10.10.4.96' }
+        - { old: '^\# TLSConnect=unencrypted', new: 'TLSConnect=psk' }
+        - { old: '^\# TLSAccept=unencrypted', new: 'TLSAccept=psk' }
+        - { old: '^\# TLSPSKIdentity=', new: 'TLSPSKIdentity=PSK 001' }
+        - { old: '^\# TLSPSKFile=', new: 'TLSPSKFile=/etc/zabbix/zabbix_agentd.psk' }
+      notify: "Restart Zabbix Agent"
+
+    - name: Add Rich Rule to Monitoring Subnet
+      firewalld:
+        rich_rule: rule family=ipv4 source address=10.10.4.0/24 port port=10050 protocol=tcp accept
+        zone: public
+        immediate: yes
+        permanent: yes
+        state: enabled
+
+    - name: Print PSK for playbook Executor to finish Zabbix Server-side configurations
+      command: cat /etc/zabbix/zabbix_agentd.psk
+      register: output_var
+
+    - debug:
+        var: output_var.stdout_lines
+
+  handlers:
+    - name: Restart Zabbix Agent
+      service:
+        name: zabbix-agentd
+        state: restarted
+        enabled: yes
