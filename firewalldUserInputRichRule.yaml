@@ -1,0 +1,25 @@
+---
+# This playbook is to allow a user-input firewalld-rich-rule agains number of hosts using Ansible
+- hosts: HOST1
+  vars_prompt:
+    - name: "user_port"
+      prompt: "Port to Enable e.g 22"
+      private: no
+
+    - name: "user_protocol"
+      prompt: "Port to Enable e.g tcp"
+      private: no
+
+    - name: "user_subnet"
+      prompt: "Subnet to allow in rich rule e.g 10.10.1.0/24"
+      private: no
+
+  remote_user: root
+  tasks:
+    - name: Add Rich Rule to Monitoring Subnet
+      firewalld:
+        rich_rule: rule family=ipv4 source address="{{ user_subnet }}" port port="{{ user_port }}" protocol="{{ user_protocol }}" accept
+        zone: public
+        immediate: yes
+        permanent: yes
+        state: enabled
