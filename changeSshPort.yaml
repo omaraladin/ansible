@@ -1,0 +1,16 @@
+---
+- hosts: prod-*
+  remote_user: root
+  tasks:
+    - name: Change Port to 2022 in ssh config file
+      lineinfile:
+        dest: "/etc/ssh/sshd_config"
+        regexp: "^Port 2|^#Port 2"
+        line: "Port 2022"
+      notify: "Restart SSHD"
+
+  handlers:
+    - name: Reload SSHD
+      service:
+        name: sshd
+        state: reloaded
