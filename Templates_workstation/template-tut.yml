@@ -2,7 +2,7 @@
 - name:
   hosts: localhost
   vars:
-    human_name: "Rana"
+    messenger: "Karl Marx"
   tasks:
     - name:
       template:
