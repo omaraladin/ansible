@@ -10,7 +10,7 @@
       private: no
 # You can also include variables directly if they won't change soon to save time      
 #  vars:
-#          zabbix_server: 103.170.73.32
+#          zabbix_server: 8.8.8.8
 #          vm_name: Dev_NodeJS_VM
   tasks:
     - name: Install Zabbix Repository
