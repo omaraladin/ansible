@@ -1,2 +1,2 @@
 # ansible
-Begginer Playbooks Repo
+Ansible Playbooks Repo
