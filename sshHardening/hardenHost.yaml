@@ -1,0 +1,56 @@
+---
+#Don't use this is still beta and you might end up with your host door locked with a lost-key XD
+- hosts: dev1
+  remote_user: root
+  vars:
+    my_password: "SomeStr0ngPas$Wo04D"
+    #  become: yes
+    #  become_method: sudo
+  gather_facts: no
+  tasks:
+      - name: create admin group
+        group:
+          name: admin
+          state: present
+        
+      - name: create Admin user
+        user:
+          name: admin
+          comment: admin user
+          state: present
+          password: "{{ my_password | password_hash('sha512') }}"
+          group: admin
+          groups: wheel
+          append: yes
+
+      # This script is found at https://github.com/omaraladin/Simple-Shell-Scripts/blob/main/sshHardening/generateKeyPair.sh
+    - name: create an OpenSSH keypair if it does not exist
+      local_action: command sh /home/ansible/scripts/generateKeyPair.sh {{inventory_hostname}}
+         
+    - name: Force regenerate an OpenSSH keypair if it already exists
+      local_action:
+        module: community.crypto.openssh_keypair
+        path: /home/ansible/.ssh/id_{{inventory_hostname}}_rsa
+        size: 4096
+        comment: "{{inventory_hostname}}"
+        force: true
+         
+    - name: Distribute the Key
+      authorized_key:
+        user: admin
+        state: present
+        key: "{{ lookup('file','/home/ansible/.ssh/id_{{ inventory_hostname }}_rsa.pub')  }}"
+
+#Template is found at
+    - name: Harden SSH configuration
+      template:
+        src: /home/ansible/templates/sshd_config.j2
+        dest: /etc/ssh/sshd_config
+        notify: "Reload SSH Service"
+        
+  handlers:
+    - name: Reload SSH Service
+      service:
+        name: sshd
+        state: reloaded
+        enabled: yes
