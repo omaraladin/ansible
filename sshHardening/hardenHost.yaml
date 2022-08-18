@@ -41,7 +41,7 @@
         state: present
         key: "{{ lookup('file','/home/ansible/.ssh/id_{{ inventory_hostname }}_rsa.pub')  }}"
 
-#Template is found at
+      #Template is found at https://github.com/omaraladin/ansible/blob/main/sshHardening/sshd_config.j2
     - name: Harden SSH configuration
       template:
         src: /home/ansible/templates/sshd_config.j2
