@@ -1,0 +1,6 @@
+---
+ - name: Hardening SSH service in servers
+   hosts: all
+   roles:
+     - role: ssh-hardening
+...

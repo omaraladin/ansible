@@ -1,0 +1,6 @@
+---
+# handlers file for ssh-hardening
+- name: Reload SSH Service
+  service:
+    name: sshd
+    state: reloaded

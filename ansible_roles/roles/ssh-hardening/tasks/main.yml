@@ -1,0 +1,17 @@
+---
+# tasks file for ssh-hardening
+ - name: Create an OpenSSH 4096 bits key pair 
+   local_action: command sh scripts/generateKeyPair.sh {{inventory_hostname}}
+
+ - name: Copy public key to server ~/.ssh/authorized_keys file
+   authorized_key:
+     user: root
+     state: present
+     # This path can be put as var please do when free
+     key: "{{ lookup('file','/home/ansible/.ssh-keys/id_{{ inventory_hostname }}_rsa.pub')  }}"
+
+ - name: Harden SSH configuration
+   template:
+     src: sshd_config.j2
+     dest: /etc/ssh/sshd_config     
+     notify: Reload SSH Service
