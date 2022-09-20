@@ -1,4 +1,4 @@
-Role Name
+SSH Hardening
 =========
 
 This role generates 4096 bits ssh key pairs, copies public keys to targets, and disables PasswordAuthentication in sshd_config
