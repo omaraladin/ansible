@@ -1,3 +1,0 @@
-1.	Playbooks could contain one or many Plays, which could contain one or many Tasks
-2.	Playbooks run tasks in order and sequentially
-3.
