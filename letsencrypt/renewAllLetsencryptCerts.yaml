@@ -1,0 +1,7 @@
+---
+- hosts: dev-server
+  remote_user: admin
+  tasks:
+    - name: renew all letsencrypt SSL certs on the server
+      command: certbot --renew --force-renewal
+...        
