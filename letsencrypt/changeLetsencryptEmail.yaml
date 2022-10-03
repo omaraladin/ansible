@@ -1,0 +1,7 @@
+---
+- hosts: dev-server
+  remote_user: admin
+  tasks:
+    - name: update Certbot Email account
+      command: certbot update_account --email employee2@example.com
+...
